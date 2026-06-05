@@ -17,8 +17,53 @@ import {
   Settings,
   Aperture,
   ChevronDown,
-  Check
+  Check,
+  Sparkles,
+  Zap,
+  Lightbulb,
+  TrendingUp,
+  ChevronRight,
+  X
 } from 'lucide-react';
+
+const INSIGHTS = [
+  {
+    id: 1,
+    type: 'attention',
+    title: 'Lovable API Usage Spike',
+    description: 'Engineering compute costs increased by 15% in the last 7 days due to Lovable.dev API rate tier escalation.',
+    action: 'Review Usage Logs',
+    time: '2 hours ago',
+    icon: TrendingUp,
+    color: 'text-amber-600 dark:text-amber-400',
+    bg: 'bg-amber-100 dark:bg-amber-500/10',
+    border: 'border-amber-200 dark:border-amber-500/20'
+  },
+  {
+    id: 2,
+    type: 'optimization',
+    title: 'Unused License Optimization',
+    description: '5 ChatGPT Enterprise seats have been inactive for over 30 days. Reassigning them could save $300/mo.',
+    action: 'Manage Seats',
+    time: 'Yesterday',
+    icon: Lightbulb,
+    color: 'text-blue-600 dark:text-blue-400',
+    bg: 'bg-blue-100 dark:bg-blue-500/10',
+    border: 'border-blue-200 dark:border-blue-500/20'
+  },
+  {
+    id: 3,
+    type: 'observation',
+    title: 'Cursor IDE Tier Limit',
+    description: 'Provisioned seats are at 95% of the current enterprise agreement limit.',
+    action: 'View Agreement',
+    time: '3 days ago',
+    icon: Zap,
+    color: 'text-emerald-600 dark:text-emerald-400',
+    bg: 'bg-emerald-100 dark:bg-emerald-500/10',
+    border: 'border-emerald-200 dark:border-emerald-500/20'
+  }
+];
 
 const NAVIGATION_ITEMS = [
   { id: 'dashboard', label: 'Executive Dashboard', icon: LayoutDashboard },
@@ -41,6 +86,7 @@ export default function AppShell() {
   const [isNavOpen, setIsNavOpen] = useState(true);
   const [isDark, setIsDark] = useState(false);
   const [activeItem, setActiveItem] = useState('dashboard');
+  const [showInsightsFeed, setShowInsightsFeed] = useState(false);
   
   const [activeWorkspace, setActiveWorkspace] = useState(WORKSPACES[0]);
   const [isWorkspaceOpen, setIsWorkspaceOpen] = useState(false);
@@ -218,10 +264,15 @@ export default function AppShell() {
                 {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               </button>
 
-              {/* Notifications */}
-              <button className="relative p-2 rounded-full text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
-                <Bell className="w-4 h-4" />
-                <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-red-500 dark:bg-red-500 rounded-full border-2 border-white dark:border-zinc-950"></span>
+              {/* Insights */}
+              <button 
+                onClick={() => setShowInsightsFeed(true)}
+                className="relative p-2 rounded-full text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              >
+                <Sparkles className="w-4 h-4" />
+                <span className="absolute top-1.5 right-1.5 w-3.5 h-3.5 bg-blue-600 dark:bg-blue-500 rounded-full border border-white dark:border-zinc-950 flex items-center justify-center text-[8px] font-bold text-white shadow-sm">
+                  3
+                </span>
               </button>
 
               {/* Profile */}
@@ -303,6 +354,61 @@ export default function AppShell() {
             
           </main>
         </div>
+
+        {/* Global Insights Feed Pane (Sidebar) */}
+        {showInsightsFeed && (
+          <>
+            <div 
+              className="fixed inset-0 bg-black/20 dark:bg-black/40 z-[60] transition-opacity"
+              onClick={() => setShowInsightsFeed(false)}
+            />
+            <div className="fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-zinc-950 border-l border-zinc-200 dark:border-zinc-800 shadow-2xl z-[70] p-6 overflow-y-auto font-sans flex flex-col">
+              <div className="flex items-center justify-between mb-8 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+                <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center shrink-0">
+                    <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  Insights Feed
+                </h2>
+                <button 
+                  onClick={() => setShowInsightsFeed(false)}
+                  className="p-2 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900/50 rounded-lg transition-colors"
+                  aria-label="Close panel"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <div className="space-y-4 flex-1">
+                {INSIGHTS.map((insight) => {
+                  const Icon = insight.icon;
+                  return (
+                    <div key={insight.id} className={`p-4 rounded-xl border ${insight.bg} ${insight.border} transition-colors`}>
+                      <div className="flex items-start gap-3">
+                        <div className={`mt-0.5 p-1.5 rounded-md bg-white/50 dark:bg-black/20 ${insight.color} shrink-0`}>
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between gap-2 mb-1">
+                            <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{insight.title}</h3>
+                            <span className="text-[10px] uppercase tracking-wider font-semibold text-zinc-500">{insight.time}</span>
+                          </div>
+                          <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed mb-3">
+                            {insight.description}
+                          </p>
+                          <button className="text-xs font-semibold text-zinc-900 dark:text-white bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-700 px-3 py-1.5 rounded-lg transition shadow-sm font-sans flex items-center gap-1.5">
+                            {insight.action}
+                            <ChevronRight className="w-3.5 h-3.5 text-zinc-400" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        )}
 
       </div>
     </div>
