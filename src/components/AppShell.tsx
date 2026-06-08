@@ -3,11 +3,15 @@ import { motion, AnimatePresence } from 'motion/react';
 import Dashboard from './Dashboard';
 import LicenseOptimization from './LicenseOptimization';
 import SystemHealth from './SystemHealth';
+import AdoptionEnablement from './AdoptionEnablement';
+import PredictiveModeling from './PredictiveModeling';
+import AdminPortal from './AdminPortal';
 import { 
   Menu, 
   ChevronLeft, 
   Bell, 
   User, 
+  Users,
   Search, 
   Moon, 
   Sun, 
@@ -71,7 +75,7 @@ const NAVIGATION_ITEMS = [
   { id: 'dashboard', label: 'Executive Dashboard', icon: LayoutDashboard },
   { id: 'optimization', label: 'License Optimization', icon: PieChart },
   { id: 'health', label: 'Health Monitor', icon: Activity },
-  { id: 'enablement', label: 'Enablement Panel', icon: ShieldCheck },
+  { id: 'enablement', label: 'Adoption & Enablement', icon: Users },
   { id: 'predictive', label: 'Predictive Modeling', icon: LineChart },
   { id: 'admin', label: 'Admin Portal', icon: Settings },
 ];
@@ -290,8 +294,11 @@ export default function AppShell() {
             {activeItem === 'dashboard' && <Dashboard />}
             {activeItem === 'optimization' && <LicenseOptimization />}
             {activeItem === 'health' && <SystemHealth />}
+            {activeItem === 'enablement' && <AdoptionEnablement />}
+            {activeItem === 'predictive' && <PredictiveModeling />}
+            {activeItem === 'admin' && <AdminPortal />}
             
-            {activeItem !== 'dashboard' && activeItem !== 'optimization' && activeItem !== 'health' && (
+            {activeItem !== 'dashboard' && activeItem !== 'optimization' && activeItem !== 'health' && activeItem !== 'enablement' && activeItem !== 'predictive' && activeItem !== 'admin' && (
               <div className="flex-1 w-full border-2 border-dashed border-zinc-300 dark:border-zinc-800 rounded-2xl flex items-center justify-center bg-zinc-50 dark:bg-zinc-900/50">
                 <div className="text-center select-none max-w-sm px-6">
                   <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-200 mb-3">
@@ -301,33 +308,7 @@ export default function AppShell() {
                     <p className="mb-4 text-base font-semibold text-zinc-900 dark:text-zinc-100">
                       {NAVIGATION_ITEMS.find(i => i.id === activeItem)?.label} Components:
                     </p>
-                    
-                    {activeItem === 'enablement' && (
-                      <ul className="list-disc pl-5 space-y-2.5 marker:text-zinc-400">
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">k-Anonymity Guardrail:</strong> Automatic privacy masking for departments under 5 users</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Adoption Velocity Metrics:</strong> WAU/MAU ratios and average prompt activity</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Feature Utilization Matrix:</strong> Low/High complexity vs Agentic tool usage tracking</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Training Opportunity Heatmap:</strong> Cross-referencing seat counts with feature utilization depth</li>
-                      </ul>
-                    )}
 
-                    {activeItem === 'predictive' && (
-                      <ul className="list-disc pl-5 space-y-2.5 marker:text-zinc-400">
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Forecasting Input Sidebar:</strong> Attrition sliders, hiring steppers, and seasonality shifts</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Prediction Visualization Canvas:</strong> 3/6/12 month probabilistic AI consumption graph</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Confidence Intervals:</strong> Variance representation driven by cloud/token consumption spikes</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">What-If Scenarios:</strong> Toggles for expansion vs conservative maintenance planning</li>
-                      </ul>
-                    )}
-
-                    {activeItem === 'admin' && (
-                      <ul className="list-disc pl-5 space-y-2.5 marker:text-zinc-400">
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Connector & Gateway Configurations:</strong> API keys, CSV drag-and-drop, and metadata tags</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Ingestion Heartbeat Table:</strong> Sync times, region tracking, and telemetry payload status</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Security Indicators:</strong> Encryption/Data Residency Badges and SSO Active Synchronization</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Role Based Access Policies:</strong> Dynamic RBAC mappings for organization-wide tools</li>
-                      </ul>
-                    )}
                   </div>
                   <div className="mt-6 flex justify-center">
                     <div className="px-3 py-1 font-mono text-xs rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">

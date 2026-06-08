@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Users, 
   TrendingDown, 
@@ -96,12 +96,6 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 export default function LicenseOptimization() {
-  const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
-
-  const toggleTooltip = (id: string) => {
-    setActiveTooltip(activeTooltip === id ? null : id);
-  };
-
   return (
     <div className="w-full flex-1 flex flex-col font-sans space-y-6">
       
@@ -132,25 +126,14 @@ export default function LicenseOptimization() {
         {/* Active Utilization Rate */}
         <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 shadow-sm flex flex-col relative">
           <div className="flex items-center justify-between mb-3 text-zinc-500 dark:text-zinc-400">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 relative group cursor-help w-max">
               <CheckCircle2 className="w-4 h-4" />
               <span className="text-xs font-semibold uppercase tracking-wider">Active Utilization</span>
-            </div>
-            
-            <button 
-              className="p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors text-zinc-400 focus:outline-none"
-              onClick={() => toggleTooltip('utilization')}
-              onMouseEnter={() => setActiveTooltip('utilization')}
-              onMouseLeave={() => setActiveTooltip(null)}
-              aria-label="More info about Active Utilization"
-            >
-              <Info className="w-4 h-4" />
-            </button>
-            {activeTooltip === 'utilization' && (
-              <div className="absolute right-4 top-12 w-64 bg-zinc-900 dark:bg-zinc-800 text-zinc-300 text-xs p-3 rounded-lg shadow-xl border border-zinc-700 z-50">
+              <Info className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-800 dark:group-hover:text-zinc-300 transition-colors ml-0.5" />
+              <div className="absolute top-full left-0 mt-2 w-64 bg-zinc-900 dark:bg-zinc-800 text-zinc-100 text-xs p-3 rounded-lg shadow-xl border border-zinc-700 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-[100] normal-case tracking-normal font-normal leading-relaxed">
                 Percentage of allocated seats that have recorded activity within the last 30 days. Allows identifying overarching toolset engagement.
               </div>
-            )}
+            </div>
           </div>
           <div className="text-3xl font-mono text-emerald-600 dark:text-emerald-500 flex items-baseline gap-2">
             {KPI_DATA.activeUtilization}%
@@ -161,25 +144,14 @@ export default function LicenseOptimization() {
         {/* Potential Monthly Savings */}
         <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 shadow-sm flex flex-col relative">
           <div className="flex items-center justify-between mb-3 text-zinc-500 dark:text-zinc-400">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 relative group cursor-help w-max">
               <TrendingDown className="w-4 h-4" />
               <span className="text-xs font-semibold uppercase tracking-wider">Potential Savings</span>
-            </div>
-            
-            <button 
-              className="p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors text-zinc-400 focus:outline-none"
-              onClick={() => toggleTooltip('savings')}
-              onMouseEnter={() => setActiveTooltip('savings')}
-              onMouseLeave={() => setActiveTooltip(null)}
-              aria-label="More info about Potential Savings"
-            >
-              <Info className="w-4 h-4" />
-            </button>
-            {activeTooltip === 'savings' && (
-              <div className="absolute right-4 top-12 w-64 bg-zinc-900 dark:bg-zinc-800 text-zinc-300 text-xs p-3 rounded-lg shadow-xl border border-zinc-700 z-50">
+              <Info className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-800 dark:group-hover:text-zinc-300 transition-colors ml-0.5" />
+              <div className="absolute top-full left-0 mt-2 w-64 bg-zinc-900 dark:bg-zinc-800 text-zinc-100 text-xs p-3 rounded-lg shadow-xl border border-zinc-700 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-[100] normal-case tracking-normal font-normal leading-relaxed">
                 Estimated monthly cost reduction achievable by executing all recommended seat revocations and tier downgrades.
               </div>
-            )}
+            </div>
           </div>
           <div className="text-3xl font-mono text-zinc-900 dark:text-zinc-100 flex items-baseline gap-2">
             ${KPI_DATA.potentialSavings.toLocaleString()}
