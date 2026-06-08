@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Dashboard from './Dashboard';
+import LicenseOptimization from './LicenseOptimization';
+import SystemHealth from './SystemHealth';
 import { 
   Menu, 
   ChevronLeft, 
@@ -285,9 +287,11 @@ export default function AppShell() {
           {/* Scrolling Content Anchor */}
           <main className="flex-1 overflow-x-hidden overflow-y-auto w-full p-6 lg:p-8 flex flex-col">
             
-            {activeItem === 'dashboard' ? (
-              <Dashboard />
-            ) : (
+            {activeItem === 'dashboard' && <Dashboard />}
+            {activeItem === 'optimization' && <LicenseOptimization />}
+            {activeItem === 'health' && <SystemHealth />}
+            
+            {activeItem !== 'dashboard' && activeItem !== 'optimization' && activeItem !== 'health' && (
               <div className="flex-1 w-full border-2 border-dashed border-zinc-300 dark:border-zinc-800 rounded-2xl flex items-center justify-center bg-zinc-50 dark:bg-zinc-900/50">
                 <div className="text-center select-none max-w-sm px-6">
                   <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-200 mb-3">
@@ -298,24 +302,6 @@ export default function AppShell() {
                       {NAVIGATION_ITEMS.find(i => i.id === activeItem)?.label} Components:
                     </p>
                     
-                    {activeItem === 'optimization' && (
-                      <ul className="list-disc pl-5 space-y-2.5 marker:text-zinc-400">
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">License Reclamation Table:</strong> Pseudonymized 30-day inactivity tracking</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Optimization Visualization (Bubble Chart):</strong> Days inactive vs Monthly cost sizing</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Quick Actions Side Panel:</strong> SCIM deprovisioning workflows & impact previews</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Figma Tier Context:</strong> Enterprise vs Collaborator credit threshold mapping</li>
-                      </ul>
-                    )}
-
-                    {activeItem === 'health' && (
-                      <ul className="list-disc pl-5 space-y-2.5 marker:text-zinc-400">
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Global Reliability Heatmap:</strong> 24-hour latency and SLA tracking across providers</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Synthetic Probe Logs:</strong> Monospace endpoint health stream table</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">Provider UI Tiles:</strong> Current status, global latency sparklines, and active SLA compliance</li>
-                        <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">SRE Traffic Redirection:</strong> Safety interlock toggle for programmatic API fallback rerouting</li>
-                      </ul>
-                    )}
-
                     {activeItem === 'enablement' && (
                       <ul className="list-disc pl-5 space-y-2.5 marker:text-zinc-400">
                         <li><strong className="text-zinc-800 dark:text-zinc-200 font-medium">k-Anonymity Guardrail:</strong> Automatic privacy masking for departments under 5 users</li>
