@@ -60,7 +60,7 @@ const PROBE_LOGS = [
   { id: 'req_6', timestamp: '14:20:58.847', endpoint: 'POST /v1/chat/completions', provider: 'OpenAI', status: 200, latency: '135ms', type: 'success' },
 ];
 
-export default function SystemHealth() {
+export default function SystemHealth({ hideHeader = false }: { hideHeader?: boolean }) {
   const [autoFallback, setAutoFallback] = useState(false);
   const [heatmapRange, setHeatmapRange] = useState<'24h' | '7d' | '30d'>('24h');
   const [hoveredBlock, setHoveredBlock] = useState<{status: string, time: string, message: string} | null>(null);
@@ -68,19 +68,21 @@ export default function SystemHealth() {
   const currentHeatmapData = HEATMAP_DATA[heatmapRange];
 
   return (
-    <div className="w-full flex-1 flex flex-col font-sans space-y-6">
+    <div className="w-full flex-1 flex flex-col font-sans space-y-6 lg:max-w-5xl">
       
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between px-2 gap-4">
-        <div>
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">System Health & Reliability</h2>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Real-time macro observability, provider SLAs, and automated fallback logic.</p>
+      {!hideHeader && (
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between px-2 gap-4">
+          <div>
+            <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">System Health & Reliability</h2>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Real-time macro observability, provider SLAs, and automated fallback logic.</p>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+            <Clock className="w-4 h-4" />
+            <span>Last updated: just now</span>
+          </div>
         </div>
-        <div className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
-          <Clock className="w-4 h-4" />
-          <span>Last updated: just now</span>
-        </div>
-      </div>
+      )}
 
       {/* TOP SECTION: Global Reliability Heatmap */}
       <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm flex flex-col overflow-hidden">

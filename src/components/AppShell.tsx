@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Dashboard from './Dashboard';
 import LicenseOptimization from './LicenseOptimization';
-import SystemHealth from './SystemHealth';
 import AdoptionEnablement from './AdoptionEnablement';
 import PredictiveModeling from './PredictiveModeling';
 import AdminPortal from './AdminPortal';
@@ -73,9 +72,8 @@ const INSIGHTS = [
 
 const NAVIGATION_ITEMS = [
   { id: 'dashboard', label: 'Executive Dashboard', icon: LayoutDashboard },
-  { id: 'optimization', label: 'License Optimization', icon: PieChart },
-  { id: 'health', label: 'Health Monitor', icon: Activity },
   { id: 'enablement', label: 'Adoption & Enablement', icon: Users },
+  { id: 'optimization', label: 'License Optimization', icon: PieChart },
   { id: 'predictive', label: 'Predictive Modeling', icon: LineChart },
   { id: 'admin', label: 'Admin Portal', icon: Settings },
 ];
@@ -292,13 +290,12 @@ export default function AppShell() {
           <main className="flex-1 overflow-x-hidden overflow-y-auto w-full p-6 lg:p-8 flex flex-col">
             
             {activeItem === 'dashboard' && <Dashboard />}
-            {activeItem === 'optimization' && <LicenseOptimization />}
-            {activeItem === 'health' && <SystemHealth />}
             {activeItem === 'enablement' && <AdoptionEnablement />}
+            {activeItem === 'optimization' && <LicenseOptimization />}
             {activeItem === 'predictive' && <PredictiveModeling />}
             {activeItem === 'admin' && <AdminPortal />}
             
-            {activeItem !== 'dashboard' && activeItem !== 'optimization' && activeItem !== 'health' && activeItem !== 'enablement' && activeItem !== 'predictive' && activeItem !== 'admin' && (
+            {activeItem !== 'dashboard' && activeItem !== 'enablement' && activeItem !== 'optimization' && activeItem !== 'predictive' && activeItem !== 'admin' && (
               <div className="flex-1 w-full border-2 border-dashed border-zinc-300 dark:border-zinc-800 rounded-2xl flex items-center justify-center bg-zinc-50 dark:bg-zinc-900/50">
                 <div className="text-center select-none max-w-sm px-6">
                   <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-200 mb-3">

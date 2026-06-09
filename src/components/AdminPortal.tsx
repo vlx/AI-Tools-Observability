@@ -3,6 +3,7 @@ import {
   Key, UploadCloud, Activity, ShieldCheck, Users, Database, 
   RefreshCw, CheckCircle2, Lock, Globe, Info, Server, Package, Plus, MoreHorizontal
 } from 'lucide-react';
+import SystemHealth from './SystemHealth';
 
 const CONNECTORS = [
   { id: 1, name: 'AWS Cost Explorer Integration', type: 'API Gateway', status: 'connected', lastSync: '10 mins ago', region: 'us-east-1' },
@@ -26,7 +27,7 @@ const AI_TOOLS = [
 ];
 
 export default function AdminPortal() {
-  const [activeTab, setActiveTab] = useState<'infrastructure' | 'portfolio' | 'security'>('infrastructure');
+  const [activeTab, setActiveTab] = useState<'infrastructure' | 'portfolio' | 'security' | 'health'>('infrastructure');
 
   return (
     <div className="w-full flex-1 flex flex-col font-sans space-y-6 pb-12">
@@ -68,6 +69,16 @@ export default function AdminPortal() {
             }`}
           >
             <ShieldCheck className="w-4 h-4" /> Security & Access
+          </button>
+          <button 
+            onClick={() => setActiveTab('health')}
+            className={`flex-1 lg:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-md transition-all whitespace-nowrap ${
+              activeTab === 'health' 
+                ? 'bg-white dark:bg-zinc-700 shadow-sm text-zinc-900 dark:text-zinc-100' 
+                : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300'
+            }`}
+          >
+            <Activity className="w-4 h-4" /> System Health
           </button>
         </div>
       </div>
@@ -311,6 +322,12 @@ export default function AdminPortal() {
                 Download Full Audit Trail
               </button>
             </div>
+          </div>
+        )}
+
+        {activeTab === 'health' && (
+          <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <SystemHealth hideHeader />
           </div>
         )}
       </div>
