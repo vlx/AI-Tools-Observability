@@ -87,7 +87,7 @@ export default function AdminPortal() {
         {activeTab === 'infrastructure' && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
             {/* Top section: Add new source */}
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 shadow-sm max-w-5xl">
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 shadow-sm">
               <div className="mb-5">
                 <div className="flex items-center gap-2 text-zinc-900 dark:text-zinc-100 font-semibold mb-1">
                   <Plus className="w-4 h-4 text-indigo-500" />
@@ -120,7 +120,7 @@ export default function AdminPortal() {
             </div>
 
             {/* Bottom section: Live Connectors */}
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 shadow-sm max-w-5xl">
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 shadow-sm">
               <div className="flex items-center justify-between mb-5">
                 <div>
                   <div className="flex items-center gap-2 text-zinc-900 dark:text-zinc-100 font-semibold mb-1">
@@ -178,7 +178,7 @@ export default function AdminPortal() {
 
         {activeTab === 'portfolio' && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 shadow-sm max-w-5xl">
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 shadow-sm">
               <div className="flex items-center justify-between mb-5">
                 <div>
                   <div className="flex items-center gap-2 text-zinc-900 dark:text-zinc-100 font-semibold">
@@ -243,7 +243,7 @@ export default function AdminPortal() {
         )}
 
         {activeTab === 'security' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-2 duration-300 max-w-5xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
             
             {/* Security Posture Status */}
             <div className="lg:col-span-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 shadow-sm border-l-4 border-l-emerald-500">

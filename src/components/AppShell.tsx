@@ -115,19 +115,19 @@ export default function AppShell() {
               animate={{ width: 256, opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
               transition={{ duration: 0.25, ease: 'easeInOut' }}
-              className="h-full bg-zinc-200/50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 flex flex-col overflow-hidden shrink-0"
+              className="h-full bg-zinc-950 border-r border-zinc-800 flex flex-col overflow-hidden shrink-0"
             >
               {/* Workspace Switcher in Sidebar Top */}
-              <div className="px-5 py-4 border-b border-zinc-200 dark:border-zinc-800 relative z-20">
+              <div className="px-5 py-4 border-b border-zinc-800 relative z-20">
                 <button 
                   onClick={() => setIsWorkspaceOpen(!isWorkspaceOpen)}
-                  className="w-full flex items-center justify-between p-2 -mx-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors text-left outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                  className="w-full flex items-center justify-between p-2 -mx-2 rounded-lg hover:bg-zinc-800/50 transition-colors text-left outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                 >
                   <div className="flex flex-col flex-1 pl-1 pr-2">
-                    <span className="font-semibold text-sm leading-none text-zinc-900 dark:text-zinc-100 tracking-tight">
+                    <span className="font-semibold text-sm leading-none text-zinc-100 tracking-tight">
                       {activeWorkspace.org}
                     </span>
-                    <span className="text-xs text-zinc-500 dark:text-zinc-400 font-medium leading-none mt-1.5 focus:outline-none">
+                    <span className="text-xs text-zinc-400 font-medium leading-none mt-1.5 focus:outline-none">
                       {activeWorkspace.env}
                     </span>
                   </div>
@@ -144,10 +144,10 @@ export default function AppShell() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -4, scale: 0.98 }}
                         transition={{ duration: 0.15, ease: "easeOut" }}
-                        className="absolute top-[calc(100%-8px)] left-3 right-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl z-50 overflow-hidden"
+                        className="absolute top-[calc(100%-8px)] left-3 right-3 bg-zinc-900 border border-zinc-800 rounded-xl shadow-xl z-50 overflow-hidden"
                       >
                         <div className="py-2">
-                          <div className="px-3 py-1.5 text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                          <div className="px-3 py-1.5 text-xs font-semibold text-zinc-400 uppercase tracking-wider">
                             Workspaces
                           </div>
                           {WORKSPACES.map(ws => (
@@ -159,20 +159,20 @@ export default function AppShell() {
                               }}
                               className={`w-full flex items-center justify-between px-4 py-2.5 text-left transition-colors ${
                                 activeWorkspace.id === ws.id 
-                                  ? 'bg-blue-50 dark:bg-blue-500/10' 
-                                  : 'hover:bg-zinc-100 dark:hover:bg-zinc-800/60'
+                                  ? 'bg-blue-500/10' 
+                                  : 'hover:bg-zinc-800/60'
                               }`}
                             >
                               <div className="flex flex-col">
-                                <span className={`text-sm font-medium ${activeWorkspace.id === ws.id ? 'text-blue-700 dark:text-blue-400' : 'text-zinc-700 dark:text-zinc-200'}`}>
+                                <span className={`text-sm font-medium ${activeWorkspace.id === ws.id ? 'text-blue-400' : 'text-zinc-200'}`}>
                                   {ws.org}
                                 </span>
-                                <span className={`${activeWorkspace.id === ws.id ? 'text-blue-600/80 dark:text-blue-400/80' : 'text-zinc-500 dark:text-zinc-400'} text-xs mt-0.5`}>
+                                <span className={`${activeWorkspace.id === ws.id ? 'text-blue-400/80' : 'text-zinc-400'} text-xs mt-0.5`}>
                                   {ws.env}
                                 </span>
                               </div>
                               {activeWorkspace.id === ws.id && (
-                                <Check className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                                <Check className="w-4 h-4 text-blue-400" />
                               )}
                             </button>
                           ))}
@@ -195,8 +195,8 @@ export default function AppShell() {
                       onClick={() => setActiveItem(item.id)}
                       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors whitespace-nowrap ${
                         isActive 
-                          ? 'bg-blue-600 text-white dark:bg-blue-600 dark:text-white' 
-                          : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800/50 hover:text-zinc-900 dark:hover:text-zinc-100'
+                          ? 'bg-blue-600 text-white' 
+                          : 'text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-100'
                       }`}
                     >
                       <Icon className="w-4 h-4 shrink-0" />
@@ -207,7 +207,7 @@ export default function AppShell() {
               </nav>
 
               {/* Bottom Info Placeholder */}
-              <div className="p-4 px-6 border-t border-zinc-200 dark:border-zinc-800/50 shrink-0 whitespace-nowrap">
+              <div className="p-4 px-6 border-t border-zinc-800/50 shrink-0 whitespace-nowrap">
                 <span className="text-xs text-zinc-500 font-mono tracking-tight">v1.2.0 • Online</span>
               </div>
             </motion.aside>
@@ -287,7 +287,7 @@ export default function AppShell() {
           </header>
 
           {/* Scrolling Content Anchor */}
-          <main className="flex-1 overflow-x-hidden overflow-y-auto w-full p-6 lg:p-8 flex flex-col">
+          <main className="flex-1 overflow-x-hidden overflow-y-auto w-full p-6 lg:p-8 flex flex-col bg-zinc-50 dark:bg-black transition-colors duration-200">
             
             {activeItem === 'dashboard' && <Dashboard />}
             {activeItem === 'enablement' && <AdoptionEnablement />}

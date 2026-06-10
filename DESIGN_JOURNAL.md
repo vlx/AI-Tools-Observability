@@ -28,3 +28,18 @@ This document captures the chronological design and development decisions made d
 - **Result:** 
   1. Relocated the "Health Monitor" view entirely, making it a fourth tab within the "Admin Portal" to successfully consolidate all infrastructure and diagnostic tools into one logical locus.
   2. Reordered the main sidebar navigation to reflect a logical, top-down business value flow: Executive Dashboard -> Adoption & Enablement -> License Optimization -> Predictive Modeling -> Admin Portal.
+
+## 6. Visual Identity Focus: High-Contrast Sidebar
+- **Starting Point:** The application followed a standard global light/dark theme switch where the sidebar blended into the main canvas.
+- **User Guidance & Reasoning:** The user wanted to polish the visual scale of the application without modifying any functionality. Specifically, they wanted the collapsible navigation panel to maintain a contrasting color scheme (specifically dark theme styling) against the light theme canvas, and for this styling to persist without flipping when the global light/dark mode is toggled.
+- **Result:** Re-architected the Tailwind classes inside the `<motion.aside>` navigation wrapper. Removed the conditional `dark:` utility classes from the sidebar and its internal components (workspace switcher, navigation buttons), locking them into deep slate/zinc background colors (`bg-zinc-950`) with high-contrast light text, ensuring a persistent premium, dark aesthetic regardless of the global application's theme state.
+
+## 7. Visual Identity Focus: Card Contrast
+- **Starting Point:** The main scrollable canvas (`<main>`) shared the exact same white (`bg-white`) or very dark (`bg-zinc-950`) background as the UI card components resting on it, meaning cards relied exclusively on borders to establish separation.
+- **User Guidance & Reasoning:** The user requested a subtle contrast so the card components "pop out" a bit more on both light and dark themes, giving the interface more dimensionality and depth.
+- **Result:** Added a slightly darker background to the main scrolling container (`bg-zinc-50` for light mode, `bg-[#050505]` for dark mode). This creates a subtle visual floor, allowing the bright white or `zinc-900` cards to elevate cleanly from the background without needing heavy dropshadows.
+
+## 8. Removal of Hardcoded Maximum Widths
+- **Starting Point:** Various cards and content containers within the `AdminPortal` and `SystemHealth` views were artificially constrained using a `max-w-5xl` utility class.
+- **User Guidance & Reasoning:** The user noticed that the content wasn't fully occupying the available screen real-estate in the dashboard. The explicit width constraints weren't strictly necessary given that the overarching layout can gracefully expand. The instruction was to remove these to allow proper liquid layout scaling.
+- **Result:** Removed the `max-w-5xl` class from the `AdminPortal` card components and `SystemHealth` base layout container. As a result, the views now expand intelligently to fill the available screen width provided by the parent viewport mechanics.

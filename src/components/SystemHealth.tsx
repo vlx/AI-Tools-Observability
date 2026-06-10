@@ -68,7 +68,7 @@ export default function SystemHealth({ hideHeader = false }: { hideHeader?: bool
   const currentHeatmapData = HEATMAP_DATA[heatmapRange];
 
   return (
-    <div className="w-full flex-1 flex flex-col font-sans space-y-6 lg:max-w-5xl">
+    <div className="w-full flex-1 flex flex-col font-sans space-y-6">
       
       {/* Header */}
       {!hideHeader && (

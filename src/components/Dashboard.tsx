@@ -318,7 +318,7 @@ export default function Dashboard() {
       </div>
 
       {/* Footer Metrics Row */}
-      <div className="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-t border-zinc-200 dark:border-zinc-800 pt-6">
+      <div className="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-zinc-200 dark:border-zinc-800 rounded-xl pt-6 rounded-xl shadow-sm bg-white dark:bg-zinc-900 p-5">
         <div className="flex flex-wrap items-center gap-6 sm:gap-8">
           <div>
             <div className="text-[11px] font-semibold text-zinc-500 uppercase tracking-widest mb-1.5 flex items-center gap-1.5 relative group cursor-help w-max">
