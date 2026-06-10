@@ -1,149 +1,108 @@
-### Aperture Version 2: User Interface Specification
+# **Product Requirements Document (PRD): Aperture AI Observability Platform**
 
-#### 1\. Global Interface Framework & Design System
+## **1\. Executive Product Overview**
 
-The Aperture interface is engineered for high-density data visualization and operational clarity, utilizing a  **Sleek Minimal-Cards**  architecture. The framework prioritizes the removal of visual noise to facilitate rapid decision-making for Enterprise SaaS Observability.
+Aperture is a specialized software-as-a-service (SaaS) observability console designed to resolve the "administrative crisis" of decentralized AI adoption. As organizations mandate the use of generative and agentic AI, infrastructure leads have lost visibility into variable consumption layers (tokens, credits, hosting) and operational reliability across third-party tools.
 
-##### 1.1 Layout and Grid System
+Aperture unifies billing metadata, endpoint health, client-side events, and HRIS data into a single control plane. The platform provides comprehensive oversight for the four primary drivers of enterprise AI spend: **GitHub Copilot, ChatGPT Enterprise, Cursor IDE, and Figma.** By normalizing disparate telemetry, Aperture empowers organizations to optimize licensing efficiency and ensure a quantifiable return on AI investment.
 
-* **Grid Specification:**  All dashboard components are aligned to a  **12-column fluid grid with 24px gutters** . This ensures consistent widget placement across varying screen resolutions.  
-* **Edge-to-Edge Strategy:**  To maximize the data visualization area, the interface utilizes collapsible utility panels instead of traditional persistent sidebars. This "Edge-to-Edge" philosophy provides an unobstructed canvas for complex time-series and flow diagrams.  
-* **Typography:**  The UI employs a high-contrast sans-serif for UI labels, while  **all numerical values and telemetry data must use a Monospace font**  to ensure tabular alignment and legibility in high-density views.
+## **2\. Market Context & Stakeholder Analysis**
 
-##### 1.2 Global Controls and Theming
+### **2.1 Stakeholder Requirements Mapping**
 
-* **Global Dark/Light Mode Toggle:**  A universal state-switch that re-maps the color palette for interactive elements.  
-* **Logic:**  Dark Mode utilizes a 900-depth background with 500-depth borders; Light Mode utilizes a 50-depth background with 200-depth borders.
-
-| Property | Implementation Detail | Data Type |
+| Stakeholder | Core Pain Point | Critical Requirement |
 | :---- | :---- | :---- |
-| **Grid Unit** | 8px Base Increment | Integer |
-| **Border Radius** | 4px (Subtle) | CSS Variable |
-| **Active State** | Accent-Blue-500 | Hex Code |
+| **CIO & IT Operations** | Management overhead of disparate vendor portals and Shadow AI risks. | Unified control plane for provisioning, SSO/SCIM mapping, and auditing unapproved extensions. |
+| **SRE & Gateway Operations** | Productivity degradation during third-party LLM outages (e.g., Anthropic or OpenAI downtime). | Real-time endpoint health monitoring and SLA-based traffic routing/failover metrics. |
+| **FinOps & Procurement** | Unpredictable, "probabilistic" costs and "seat rot" (inactive licenses). | Granular cost attribution and automated reclamation workflows for licenses with zero 30-day activity. |
+| **HR & Enablement** | Massive usage disparity between power users and the general workforce. | Aggregated adoption telemetry to target training while maintaining the k=5 privacy floor. |
+| **Line-of-Business Leaders** | Inability to justify high-cost AI investments to the board. | Correlation of AI usage with downstream productivity (e.g., **GitHub PR cycle times**, **HubSpot conversion rates**). |
 
-#### 2\. Executive Cost Dashboard (Sankey Visualization)
+### **2.2 The Strategic Moat (Market Gap)**
 
-This view provides financial leaders with a real-time visualization of the  **Consolidated Cost Allocator Mathematical Engine** .
+Traditional observability platforms like **Arize** or **Langfuse** focus on "Internal Model Tracing"—troubleshooting custom-built RAG pipelines. Conversely, SaaS security tools like **Knostic** focus on "Static Policy Enforcement" and threat prevention.
 
-##### 2.1 Sankey Diagram Specifications
+Aperture defines a new category: **External Tooling Governance**. We bridge the gap between technical reliability (SRE) and financial accountability (FinOps) for the third-party AI ecosystem, which currently lacks a standardized telemetry interface.
 
-The interactive Sankey Diagram maps the flow of expenditures from original providers to internal cost centers.
+## **3\. High-Level Architecture & Data Flow**
 
-* **Node Mapping:**  
-* **Source:**  GitHub, OpenAI, Figma, Cursor, Lovable.  
-* **Category:**  Seat Subscriptions ( $S\_t \\cdot N\_t$ ) vs. Variable Consumption ( $\\sum K\_{t,u} \\cdot P\_t$ ).  
-* **Allocations:**  Engineering, Product, Marketing.  
-* **Visual Logic:**  Link thickness is dynamically weighted by the result of the  $C\_{total}$  calculation for that specific path.  
-* **Global Spend Overview:**  A primary card displays the aggregate  $C\_{total}$  result in a 32pt Monospace typeface. This card serves as the real-time visual output of the mathematical sum of base seats ( $S\_t, N\_t$ ), variable units ( $K\_{t,u}$ ), and cloud overages ( $O\_t$ ).
+Aperture utilizes a decoupled cloud architecture to ingest, normalize, and secure multi-vendor telemetry:
 
-##### 2.2 FR-3: Real-Time Anomaly Detection
+1. **SaaS API Ingestors:** Cron-based microservices that programmatically fetch billing and message metadata from official vendor APIs (GitHub, OpenAI, Cursor).  
+2. **Client-Side Gateways:** Lightweight browser and IDE agents that detect unauthorized "Shadow AI" usage and capture localized interaction events.  
+3. **Endpoint Reliability Probe:** Distributed synthetic checkers that continuously monitor the latency and availability of provider endpoints to track contractual SLAs.  
+4. **Normalization & Predictive Cost Engine:** A standardization layer that converts disparate units (tokens, credits, seats) into a unified financial model.  
+5. **Anonymization Buffer:** The mandatory enforcement point where PII is hashed and k-anonymity (k=5) is applied before any data is persisted to the ledger.  
+6. **Presentation Web Portal:** A role-based dashboard providing financial, operational, and adoption insights for enterprise stakeholders.
 
-* **Triggering Logic:**  A  **Sticky Notification Header**  appears when the daily cost growth rate for any internal cost center deviates by  $\>7\\%$ .  
-* **Interaction Pattern:**  The banner is persistent and remains at the top of the viewport across all tabs until acknowledged by a user with  **Admin-level RBAC privileges** .
+   ## **4\. Functional Requirements (FR)**
 
-#### 3\. SaaS License Optimization Matrix (Bubble Chart)
-
-The Optimization Matrix provides a functional interface for identifying and reclaiming unused licenses per  **FR-6** .
-
-##### 3.1 Optimization Visualization
-
-* **Chart Configuration:**  
-* **X-Axis:**  Days Since Last Active Message/Action (0–180 scale).  
-* **Y-Axis:**  Monthly Seat Cost ( $S\_t$ ).  
-* **Bubble Size:**  Projected Annual Savings (Current  $S\_t \\times 12$  months).  
-* **Data Filtering:**  Points are only rendered for users meeting the reclamation criteria (0 messages/actions over a rolling 30-day window).
-
-##### 3.2 Quick Actions Side Panel
-
-Clicking a bubble expands a side utility panel with the following specifications:
-
-* **User Metadata:**  Pseudonymized ID, Team, and Primary Tool.  
-* **Cost Impact Preview:**  A dynamic label showing the real-time drop in  $C\_{total}$  if the seat is reclaimed.  
-* **Primary Action:**  A button labeled  **"Orchestrate Deprovisioning"**  which triggers the backend SCIM reclamation workflow.
-
-#### 4\. Unified Provider Health Monitor (Density Heatmap)
-
-The Health Monitor is a high-density SRE view for tracking external AI endpoint reliability and SLA compliance as per  **FR-4** .
-
-##### 4.1 Global Reliability Heatmap
-
-* **Grid Definition:**  
-* **Columns:**  24-hour time increments (hourly buckets).  
-* **Rows:**  AI Providers (OpenAI, Anthropic, Google Vertex, Azure OpenAI).  
-* **Color Scale:**  
-* **Green:**  Latency \< 500ms / 100% Uptime.  
-* **Yellow:**  Latency 500ms–1500ms (Latency Spike).  
-* **Red:**  Latency \> 1500ms or Status Code 5xx (SLA Breach).  
-* **Hover State:**  Hovering over any cell reveals a tooltip displaying the exact  **Mean Latency (ms)**  and  **Success Rate %**  for that hour.
-
-##### 4.2 Synthetic Probe Logs
-
-The Endpoint Reliability Probe executes synthetic pings at **60-second intervals** . Logs are displayed in a monospace table.
-
-| Timestamp | Provider Endpoint | Latency (ms) | Status |
+| ID | Requirement Title | Priority | Description |
 | :---- | :---- | :---- | :---- |
-| 2026-03-20 10:00:01 | OpenAI GPT-4o | 412ms | 200 OK |
-| 2026-03-20 10:00:05 | Anthropic Claude 3.5 | 890ms | 200 OK |
-| 2026-03-20 10:01:02 | Google Vertex AI | 0ms | 503 ERR |
+| **FR-1** | Multi-SaaS Ingestion | Critical | Programmatic ingestion of telemetry via APIs and primary CSV parsing for tools lacking API exposure (Figma). |
+| **FR-2** | Normalized Cost Mapping | Critical | Standardization of billing units (Figma credits, Cursor tokens, Lovable VM tiers) into a unified engine including fixed infra minimums. |
+| **FR-3** | Anomaly Detection | High | Real-time monitoring of consumption trends; alerts on daily cost growth deviations \> 7%. |
+| **FR-4** | SLA Monitoring | High | Continuous synthetic pings to track provider uptime and response latency for operational reliability. |
+| **FR-5** | Privacy-First Anonymization | Critical | Pseudonymization of user IDs at ingestion and enforcement of a k=5 anonymity floor for all team views. |
+| **FR-6** | Automated License Reclamation | High | Identification of inactive accounts (30 days zero activity) to trigger deprovisioning and immediate cost recovery. |
+| **FR-7** | Shadow AI Discovery | Medium | Detection of unauthorized AI extensions or browser-based usage to drive Cost Avoidance metrics. |
+| **FR-8** | Predictive Cost Modeling | High | Ingestion of dynamic HR forecasting data (attrition, hires) to generate future spend projections. |
 
-#### 5\. FR-8: Predictive Cost Modeling View
+   ## **5\. The Aperture Mathematical Engine**
 
-This interface allows for probabilistic forecasting of AI expenditures based on organizational growth and agentic adoption.
+   ### **5.1 Consolidated Cost Allocator**
 
-##### 5.1 Forecasting Line Graph
+To normalize expenditure across different tools (T) and users (U), the engine calculates current spend including fixed infrastructure minimums:
 
-* **Data Logic:**  Displays  **Actual Spend**  (solid) vs.  **Predicted Spend**  (dotted).  
-* **Confidence Intervals:**  Shaded alpha-transparent fills (0.15 opacity) represent variance driven by "probabilistic AI consumption" (e.g., unexpected reasoning cycles or token spikes).  
-* **Currency Normalization:**  The Y-axis converts all variable units ( $K\_{t,u}$ ) into USD using the  $P\_t$  (unit price) rate card from the Normalization Engine.
+$$
+C\_{total} \= \\sum\_{t \\in T} (S\_t \\cdot N\_t \+ \\sum\_{u \\in U} (K\_{t,u} \\cdot \\vec{P\_t}) \+ O\_t)
+$$
 
-##### 5.2 "What-If" Simulation Sliders
+* $S\_t$: Base monthly subscription cost per seat.  
+* $N\_t$: Active seat allocation count.  
+* $K\_{t,u}$: Unit volume consumed by user u.  
+* $\\vec{P\_t}$: **Price Vector.** For tools like Cursor, this represents a vector of prices (Input, Output, Cache Read, Cache Write) rather than a scalar value.  
+* $O\_t$: **Variable Overages & Fixed Minimums.** Includes mandatory cloud infrastructure (e.g., the $300/year Supabase minimum for Lovable.dev deployments).
 
-Users can adjust the following variables to update the dotted forecast line in real-time:
+  ### **5.2 Predictive Cost Forecaster (FR-8)**
 
-* **Headcount Growth:**  Increases the  $N\_t$  variable across all tools.  
-* **Agentic Feature Adoption:**  Simulates an increase in high-complexity credit consumption.  
-* **Figma Make:**  Increases  $K\_{t,u}$  by 20 credits per execution.  
-* **Lovable Schema Gen:**  Increases  $K\_{t,u}$  by 1.2–2.0+ credits per action.
+The predictive engine incorporates HRIS data to forecast future budgetary requirements:
 
-#### 6\. Privacy-First Adoption & Enablement Panel
+$$
+C\_{predicted} \= \\sum(S\_t \\cdot (N\_t \+ H\_t \- A\_t) \+ \\sum(K\_{t,u} \\cdot \\vec{P\_t} \\cdot D\_u) \+ O\_t)
+$$
 
-In accordance with  **FR-5** , this view monitors organizational maturity while strictly enforcing employee privacy.
+* $H\_t$: Forecasted New Hires (incremental seat growth).  
+* $A\_t$: Forecasted Attrition (seat reduction).  
+* $D\_u$: **Dynamic Workday Factor.** A usage multiplier calculated as $\\frac{\\text{Planned Work Days}}{\\text{Total Business Days}}$ in a given month to account for holidays and leave.
 
-##### 6.1 Adoption Metrics & Privacy Shield
+  ## **6\. Multi-Vendor Telemetry & Integration Specs**
 
-* **Team Adoption Velocity:**  Bar charts showing WAU-to-MAU ratios.  
-* **Privacy Shield Enforcement:**  The interface confirms  **k-anonymity (k=5)** .  
-* **Technical Constraint:**  To ensure compliance, the API request itself is truncated at the normalization layer. Data for any team with fewer than 5 members is masked/greyed out in the UI and nullified in the data payload.
+* **GitHub Copilot:** REST API integration for daily aggregated metrics. Aperture specifically ingests lines of code (LOC) suggested, accepted, and deleted to correlate with PR cycle times.  
+* **Cursor IDE:** Integration via Read-only Admin API Key. Must distinguish between standard tokens and **Cache Reads/Writes**. Use the `cursor:max_mode` tag to identify high-context (and high-cost) developer sessions.  
+* **ChatGPT Enterprise:** Concurrent use of the OpenAI Compliance API (for raw metadata) and Workspace Analytics (for message counts/custom GPT usage) without exposing sensitive message content.  
+* **Figma:** **\[Roadmap Risk\]** As of 2026, Figma does not expose a programmatic billing API. The **CSV parser is the primary ingestion method**. It must differentiate between the 4,250 credit Enterprise allocation and the 500 credit Collaborator tier.  
+* **Lovable.dev:** Capture of credit-based actions (0.5–2.0 credits per edit) and variable VM tier costs (Tiny to Large).
 
-##### 6.2 Feature Utilization Matrix
+  ## **7\. Data Privacy & Non-Functional Requirements (NFR)**
 
-| Complexity Tier | Consumption Rate | Common Tool Examples |
-| :---- | :---- | :---- |
-| **Low-Complexity** | 2–5 Credits / 0.5 Credits | Figma Vector Gen, Lovable Simple Edits |
-| **High-Complexity** | 2–25 Credits | Figma Gemini 3 Pro Images, Lovable Auth Setup |
-| **Agentic** | 20+ Credits | Figma Make, Automated Workflow Mapping |
+* **Scalability:** Ingestion pipeline must process 20M daily events and support 50k concurrent seats.  
+* **Security:** AES-256 encryption at rest; TLS 1.3 in transit.  
+* **Local Data Residency:** Mandatory support for local data residency configurations to meet regional enterprise compliance requirements.  
+* **Privacy Floor:** Strict enforcement of k-anonymity (k=5) at the Anonymization Buffer.  
+* **Regulatory Compliance:** Full alignment with GDPR, CCPA, and the EU AI Act's ban on emotion monitoring/biometric categorization in the workplace.
 
-#### 7\. Connector Configuration & Ingestion Status
+  ## **8\. User Interface & Reporting Specifications**
 
-Administrators use this interface to establish programmatic links to the four MVP AI providers.
+* **Executive Cost Dashboard:** High-level trend lines, cost-center breakdowns, and real-time anomaly banners for runaway consumption.  
+* **Predictive Budget Planner:** Visualization of C\_{predicted} by layering HRIS forecasting (hiring/attrition) over current consumption trends.  
+* **SaaS License Optimization Matrix:** 30-day inactivity tracker identifying "seat rot" with one-click deprovisioning workflows.  
+* **Unified Provider Health Monitor:** Technical view of synthetic latency tests and global uptime across OpenAI, Anthropic, and Azure.  
+* **Privacy-First Enablement Panel:** Adoption velocity and prompt counts masked for any cohort with fewer than 5 members.
 
-##### 7.1 Provider Connectivity Logic
+  ## **9\. Strategic Implementation Roadmap**
 
-* **GitHub/OpenAI/Cursor:**  
-* **Field:**  Admin API Key (Masked by default).  
-* **Interaction:**  "Encrypted/Hidden" toggle to reveal key.  
-* **Metadata Tags:**  For  **Cursor** , the UI includes a field for  **Virtual Tags**  (e.g., cursor:max\_mode) to track high-context window usage.  
-* **Figma:**  
-* **Mechanism:**  A dedicated  **Drag-and-Drop Zone**  for CSV exports from the Figma Admin Console (required due to lack of real-time API).
-
-##### 7.2 Ingestion Heartbeat Table
-
-Monitors the health of the multi-source telemetry pipeline.
-
-| Connector | Last Successful Sync | Residency Region | Metadata Collected |
-| :---- | :---- | :---- | :---- |
-| **GitHub Copilot** | 2 mins ago | US-East-1 | Accepted Lines, IDE Platform |
-| **Cursor IDE** | 5 mins ago | US-East-1 | Cache Read/Write Tokens |
-| **ChatGPT Ent.** | 12 mins ago | EU-Central-1 | Message Count, Model Family |
-| **Figma** | 24h ago | US-East-1 | Manual CSV Payload |
+* **Phase 1 (Month 1): Instrumentation & Directory Mapping.** Establish API/CSV connections and map telemetry to HRIS for unified cost allocation.  
+* **Phase 2 (Month 2): Discovery & Reclamation.** Activate Shadow AI discovery to identify **Cost Avoidance** opportunities and execute first license reclamation cycle.  
+* **Phase 3 (Month 3): Predictive Activation & ROI.** Deployment of C\_{predicted} forecasting and correlation of usage with productivity metrics (e.g., cost-per-merged-PR via GitHub cycle times).
 
