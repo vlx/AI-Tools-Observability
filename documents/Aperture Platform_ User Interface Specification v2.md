@@ -34,14 +34,14 @@ The interactive Sankey Diagram maps the flow of expenditures from original provi
 
 * **Node Mapping:**  
   * **Source:** GitHub, OpenAI, Figma, Cursor, Lovable.  
-  * **Category:** Seat Subscriptions (S\_t \\cdot N\_t) vs. Variable Consumption (\\sum K\_{t,u} \\cdot P\_t).  
+  * **Category:** Seat Subscriptions $(S\_t \\cdot N\_t)$ vs. Variable Consumption $(\\sum K\_{t,u} \\cdot P\_t)$.  
   * **Allocations:** Engineering, Product, Marketing.  
-* **Visual Logic:** Link thickness is dynamically weighted by the result of the C\_{total} calculation for that specific path.  
-* **Global Spend Overview:** A primary card displays the aggregate C\_{total} result in a 32pt Monospace typeface. This card serves as the real-time visual output of the mathematical sum of base seats (S\_t, N\_t), variable units (K\_{t,u}), and cloud overages (O\_t).
+* **Visual Logic:** Link thickness is dynamically weighted by the result of the $C\_{total}$ calculation for that specific path.  
+* **Global Spend Overview:** A primary card displays the aggregate $C\_{total}$ result in a 32pt Monospace typeface. This card serves as the real-time visual output of the mathematical sum of base seats $(S\_t, N\_t)$, variable units $(K\_{t,u})$, and cloud overages $(O\_t)$.
 
 ### **2.2 FR-3: Real-Time Anomaly Detection**
 
-* **Triggering Logic:** A **Sticky Notification Header** appears when the daily cost growth rate for any internal cost center deviates by \>7\\%.  
+* **Triggering Logic:** A **Sticky Notification Header** appears when the daily cost growth rate for any internal cost center deviates by $\>7\\%$.  
 * **Interaction Pattern:** The banner is persistent and remains at the top of the viewport across all tabs until acknowledged by a user with **Admin-level RBAC privileges**.
 
 \--------------------------------------------------------------------------------
@@ -54,8 +54,8 @@ The Optimization Matrix provides a functional interface for identifying and recl
 
 * **Chart Configuration:**  
   * **X-Axis:** Days Since Last Active Message/Action (0–180 scale).  
-  * **Y-Axis:** Monthly Seat Cost (S\_t).  
-  * **Bubble Size:** Projected Annual Savings (Current S\_t \\times 12 months).  
+  * **Y-Axis:** Monthly Seat Cost $(S\_t)$.  
+  * **Bubble Size:** Projected Annual Savings $(Current S\_t \\times 12 months)$.  
 * **Data Filtering:** Points are only rendered for users meeting the reclamation criteria (0 messages/actions over a rolling 30-day window).
 
 ### **3.2 Quick Actions Side Panel**
@@ -63,7 +63,7 @@ The Optimization Matrix provides a functional interface for identifying and recl
 Clicking a bubble expands a side utility panel with the following specifications:
 
 * **User Metadata:** Pseudonymized ID, Team, and Primary Tool.  
-* **Cost Impact Preview:** A dynamic label showing the real-time drop in C\_{total} if the seat is reclaimed.  
+* **Cost Impact Preview:** A dynamic label showing the real-time drop in $C\_{total}$ if the seat is reclaimed.  
 * **Primary Action:** A button labeled **"Orchestrate Deprovisioning"** which triggers the backend SCIM reclamation workflow.
 
 \--------------------------------------------------------------------------------
@@ -103,16 +103,16 @@ This interface allows for probabilistic forecasting of AI expenditures based on 
 
 * **Data Logic:** Displays **Actual Spend** (solid) vs. **Predicted Spend** (dotted).  
 * **Confidence Intervals:** Shaded alpha-transparent fills (0.15 opacity) represent variance driven by "probabilistic AI consumption" (e.g., unexpected reasoning cycles or token spikes).  
-* **Currency Normalization:** The Y-axis converts all variable units (K\_{t,u}) into USD using the P\_t (unit price) rate card from the Normalization Engine.
+* **Currency Normalization:** The Y-axis converts all variable units $(K\_{t,u})$ into USD using the $P\_t$ (unit price) rate card from the Normalization Engine.
 
 ### **5.2 "What-If" Simulation Sliders**
 
 Users can adjust the following variables to update the dotted forecast line in real-time:
 
-* **Headcount Growth:** Increases the N\_t variable across all tools.  
+* **Headcount Growth:** Increases the $N\_t$ variable across all tools.  
 * **Agentic Feature Adoption:** Simulates an increase in high-complexity credit consumption.  
-  * **Figma Make:** Increases K\_{t,u} by 20 credits per execution.  
-  * **Lovable Schema Gen:** Increases K\_{t,u} by 1.2–2.0+ credits per action.
+  * **Figma Make:** Increases $K\_{t,u}$ by 20 credits per execution.  
+  * **Lovable Schema Gen:** Increases $K\_{t,u}$ by 1.2–2.0+ credits per action.
 
 \--------------------------------------------------------------------------------
 
