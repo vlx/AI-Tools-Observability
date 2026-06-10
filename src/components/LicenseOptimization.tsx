@@ -161,7 +161,7 @@ export default function LicenseOptimization() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-4">
-        
+
         {/* Optimization Visualization (Bubble Chart) */}
         <div className="lg:col-span-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm flex flex-col overflow-hidden">
           <div className="px-5 py-4 border-b border-zinc-100 dark:border-zinc-800/50 flex items-center justify-between">
@@ -207,42 +207,92 @@ export default function LicenseOptimization() {
           </div>
         </div>
 
+        {/* Shadow IT Financial Waste */}
+        <div className="lg:col-span-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm flex flex-col overflow-hidden">
+          <div className="px-5 py-4 border-b border-zinc-100 dark:border-zinc-800/50 flex flex-col gap-4">
+            <div>
+              <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <Users className="w-4 h-4 text-rose-500" />
+                Shadow AI Subscriptions
+              </h3>
+              <p className="text-xs text-zinc-500 mt-1">Est. waste from employees expensing individual consumer subs.</p>
+            </div>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-2 bg-zinc-50 dark:bg-zinc-950 p-3 rounded-lg border border-zinc-200 dark:border-zinc-800">
+              <div className="text-left flex-1 w-full sm:w-auto">
+                <p className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider mb-0.5">Est. Spend</p>
+                <div className="text-lg font-mono text-rose-600 dark:text-rose-500">$4,100<span className="text-[10px] text-rose-600/70 dark:text-rose-500/70">/mo</span></div>
+              </div>
+              <div className="hidden sm:block w-px h-8 bg-zinc-200 dark:bg-zinc-700"></div>
+              <div className="text-left sm:text-right flex-1 w-full sm:w-auto">
+                <p className="text-[10px] text-zinc-500 font-semibold uppercase tracking-wider mb-0.5">Savings</p>
+                <div className="text-lg font-mono text-emerald-600 dark:text-emerald-500">~$1,800<span className="text-[10px] text-emerald-600/70 dark:text-emerald-500/70">/mo</span></div>
+              </div>
+            </div>
+          </div>
+          <div className="p-5 flex-1 bg-zinc-50/50 dark:bg-zinc-950/20">
+            <h4 className="text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-3 block">Top Discovered Subs</h4>
+            <div className="flex flex-col gap-3">
+              <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 shadow-sm">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">ChatGPT Plus</span>
+                  <span className="text-[10px] font-mono bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 px-1.5 py-0.5 rounded">112 users</span>
+                </div>
+                <div className="text-xs text-zinc-500 leading-snug tracking-tight">~$2,240/mo expensed.</div>
+              </div>
+              <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 shadow-sm">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">Claude Pro</span>
+                  <span className="text-[10px] font-mono bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 px-1.5 py-0.5 rounded">45 users</span>
+                </div>
+                <div className="text-xs text-zinc-500 leading-snug tracking-tight">~$900/mo expensed.</div>
+              </div>
+              <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 shadow-sm">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">Midjourney</span>
+                  <span className="text-[10px] font-mono bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 px-1.5 py-0.5 rounded">32 users</span>
+                </div>
+                <div className="text-xs text-zinc-500 leading-snug tracking-tight">~$960/mo expensed.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Actionable Recommendations List */}
-        <div className="lg:col-span-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm flex flex-col overflow-hidden max-h-[420px]">
+        <div className="lg:col-span-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm flex flex-col overflow-hidden mt-2">
           <div className="px-5 py-4 border-b border-zinc-100 dark:border-zinc-800/50">
             <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Top Optimization Actions</h3>
           </div>
-          <div className="overflow-y-auto flex-1 p-2">
-            <div className="space-y-2">
+          <div className="p-5 flex-1">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {RECOMMENDATIONS.map((rec) => {
                 const ActionIcon = rec.actionIcon;
                 return (
-                  <div key={rec.id} className="p-4 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors border border-transparent hover:border-zinc-100 dark:hover:border-zinc-800 group">
-                    <div className="flex justify-between items-start mb-2">
+                  <div key={rec.id} className="p-5 rounded-xl bg-zinc-50 dark:bg-zinc-800/20 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors group flex flex-col">
+                    <div className="flex justify-between items-start mb-4">
                       <div>
                         <h4 className="text-sm font-semibold text-zinc-900 dark:text-white">{rec.tool}</h4>
-                        <p className="text-xs text-zinc-500 mt-0.5">{rec.department}</p>
+                        <p className="text-xs text-zinc-500 mt-1">{rec.department}</p>
                       </div>
                       <div className="text-right">
-                        <span className="text-sm font-mono font-medium text-emerald-600 dark:text-emerald-400">+${rec.savings}</span>
+                        <span className="text-lg font-mono font-medium text-emerald-600 dark:text-emerald-400">+${rec.savings}</span>
                         <p className="text-[10px] text-zinc-400 uppercase tracking-widest mt-0.5">/ mo</p>
                       </div>
                     </div>
                     
-                    <div className="flex gap-4 my-3 px-3 py-2 bg-zinc-50 dark:bg-zinc-900/50 rounded-md border border-zinc-100 dark:border-zinc-800">
+                    <div className="flex gap-4 mb-5 px-4 py-3 bg-white dark:bg-zinc-900/50 rounded-lg border border-zinc-100 dark:border-zinc-700/50 flex-1">
                       <div>
-                        <p className="text-[10px] text-zinc-400 font-semibold uppercase tracking-wider mb-0.5">Inactive</p>
-                        <p className="text-xs font-mono text-zinc-700 dark:text-zinc-300">{rec.inactiveSeats} seats</p>
+                        <p className="text-[10px] text-zinc-400 font-semibold uppercase tracking-wider mb-1">Inactive</p>
+                        <p className="text-sm font-mono text-zinc-700 dark:text-zinc-300">{rec.inactiveSeats} seats</p>
                       </div>
                       <div className="w-px bg-zinc-200 dark:bg-zinc-700"></div>
                       <div>
-                        <p className="text-[10px] text-zinc-400 font-semibold uppercase tracking-wider mb-0.5">Last Active</p>
-                        <p className="text-xs font-mono text-zinc-700 dark:text-zinc-300">{rec.lastActive}</p>
+                        <p className="text-[10px] text-zinc-400 font-semibold uppercase tracking-wider mb-1">Last Active</p>
+                        <p className="text-sm font-mono text-zinc-700 dark:text-zinc-300">{rec.lastActive}</p>
                       </div>
                     </div>
 
-                    <button className={`w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md text-xs font-semibold border transition-all ${rec.colorClass} shadow-sm opacity-90 group-hover:opacity-100`}>
-                      <ActionIcon className="w-3.5 h-3.5" />
+                    <button className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold border transition-all ${rec.colorClass} shadow-sm opacity-90 group-hover:opacity-100 mt-auto`}>
+                      <ActionIcon className="w-4 h-4" />
                       {rec.action}
                     </button>
                   </div>

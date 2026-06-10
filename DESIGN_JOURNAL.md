@@ -68,3 +68,13 @@ This document captures the chronological design and development decisions made d
 - **Starting Point:** Various cards and content containers within the `AdminPortal` and `SystemHealth` views were artificially constrained using a `max-w-5xl` utility class.
 - **User Guidance & Reasoning:** The user noticed that the content wasn't fully occupying the available screen real-estate in the dashboard. The explicit width constraints weren't strictly necessary given that the overarching layout can gracefully expand. The instruction was to remove these to allow proper liquid layout scaling.
 - **Result:** Removed the `max-w-5xl` class from the `AdminPortal` card components and `SystemHealth` base layout container. As a result, the views now expand intelligently to fill the available screen width provided by the parent viewport mechanics.
+
+## 14. Addressing Shadow AI
+- **Starting Point:** The system accurately tracked authorized and integrated API tools, but lacked visibility into unsanctioned or "Shadow AI" usage (e.g. employees using external web-based AI tools without SSO).
+- **User Guidance & Reasoning:** The user highlighted the importance of observing Shadow AI platforms. Since Shadow AI is not formally provisioned and doesn't directly consume the organization's cloud budget, it should not be blended into the overall spend metrics or the Sankey diagram. However, it represents a potential security or compliance risk that needs to be surfaced.
+- **Result:** We added a dedicated "Shadow AI (Est.)" metric to the Footer Metrics Row on the Executive Dashboard, isolating it from the core tracked spend. Furthermore, we integrated a new "Shadow AI Usage Detected" alert into the Insights Feed card component, specifically calling out un-integrated web app usage (like Claude or Midjourney) over the past week for review.
+
+## 15. License Optimization Layout Adjustments
+- **Starting Point:** The "Shadow AI Subscriptions" section was a massive card spanning the full width above the graphical views, feeling detached from general optimization routines and pushing primary seat utilization data down.
+- **User Guidance & Reasoning:** The user suggested moving Shadow AI next to the "Inactive Seat Clusters" chart on the same row, grouping them semantically as a dedicated "Anomalies / Issues" section that needs user action or attention.
+- **Result:** Redesigned the "Shadow AI Subscriptions" layout to fit into a `1-column` vertical card, placing it adjacent to the `2-column` "Inactive Seat Clusters" graph. Correspondingly, transformed the "Top Optimization Actions" list into a full-width (`3-column`) grid layout below them to give the action items clear priority and better readability.

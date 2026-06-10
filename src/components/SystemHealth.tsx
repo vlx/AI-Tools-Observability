@@ -54,6 +54,7 @@ const HEATMAP_DATA = {
 const PROBE_LOGS = [
   { id: 'req_1', timestamp: '14:21:05.122', endpoint: 'POST /v1/messages', provider: 'Anthropic', status: 429, latency: '1250ms', type: 'error' },
   { id: 'req_2', timestamp: '14:21:04.853', endpoint: 'POST /v1/chat/completions', provider: 'OpenAI', status: 200, latency: '142ms', type: 'success' },
+  { id: 'req_2b', timestamp: '14:21:04.100', endpoint: 'CASB_EGRESS_SYNC /v1/discovery', provider: 'Network Edge', status: 200, latency: '840ms', type: 'info', shadowTrigger: true },
   { id: 'req_3', timestamp: '14:21:03.401', endpoint: 'POST /v1/models/gemini-pro:generateContent', provider: 'Gemini', status: 200, latency: '89ms', type: 'success' },
   { id: 'req_4', timestamp: '14:21:02.112', endpoint: 'POST /v1/messages', provider: 'Anthropic', status: 503, latency: '3405ms', type: 'error' },
   { id: 'req_5', timestamp: '14:21:01.005', endpoint: 'GET /v1/models', provider: 'OpenAI', status: 200, latency: '45ms', type: 'success' },
@@ -223,7 +224,7 @@ export default function SystemHealth({ hideHeader = false }: { hideHeader?: bool
             <div className="px-5 py-4 border-b border-zinc-100 dark:border-zinc-800/50 flex items-center justify-between">
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
                 <Search className="w-4 h-4 text-zinc-400" />
-                Live Synthetic Probes
+                Live Synthetic Probes & Discovery Sync
               </h3>
               <div className="flex items-center gap-2">
                 <span className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 px-2 py-1 rounded-md">
@@ -242,18 +243,19 @@ export default function SystemHealth({ hideHeader = false }: { hideHeader?: bool
               <div className="flex flex-col space-y-1.5 min-w-[600px]">
                 {PROBE_LOGS.map((log) => {
                   const isError = log.type === 'error';
-                  const statusLabel = log.status === 200 ? 'INFO' : log.status === 429 ? 'WARN' : 'ERR ';
-                  const statusColor = log.status === 200 ? 'text-blue-500' : log.status === 429 ? 'text-amber-500' : 'text-red-500';
+                  const isInfo = log.type === 'info';
+                  const statusLabel = isInfo ? 'SYNC' : log.status === 200 ? 'INFO' : log.status === 429 ? 'WARN' : 'ERR ';
+                  const statusColor = isInfo ? 'text-indigo-400' : log.status === 200 ? 'text-blue-500' : log.status === 429 ? 'text-amber-500' : 'text-red-500';
                   
                   return (
-                    <div key={log.id} className="flex gap-3 whitespace-nowrap opacity-90 hover:opacity-100 transition-opacity">
+                    <div key={log.id} className={`flex gap-3 whitespace-nowrap opacity-90 hover:opacity-100 transition-opacity ${isInfo ? 'bg-indigo-900/20 px-2 -mx-2 rounded' : ''}`}>
                       <span className="text-zinc-600 shrink-0">[{log.timestamp}]</span>
                       <span className={`${statusColor} shrink-0 w-10 font-bold`}>{statusLabel}</span>
-                      <span className={`shrink-0 w-24 ${isError ? 'text-red-400' : 'text-zinc-500'}`}>[{log.provider}]</span>
-                      <span className={isError ? 'text-red-400' : 'text-zinc-300'}>
+                      <span className={`shrink-0 w-24 ${isError ? 'text-red-400' : isInfo ? 'text-indigo-300' : 'text-zinc-500'}`}>[{log.provider}]</span>
+                      <span className={isError ? 'text-red-400' : isInfo ? 'text-indigo-200' : 'text-zinc-300'}>
                         {log.endpoint}
                       </span>
-                      <span className={`ml-auto shrink-0 ${isError ? 'text-red-500/90' : 'text-emerald-500/70'}`}>
+                      <span className={`ml-auto shrink-0 ${isError ? 'text-red-500/90' : isInfo ? 'text-indigo-400/80' : 'text-emerald-500/70'}`}>
                         status={log.status} latency={log.latency}
                       </span>
                     </div>

@@ -10,20 +10,25 @@ const CONNECTORS = [
   { id: 2, name: 'Google Cloud Billing', type: 'Service Account', status: 'connected', lastSync: '45 mins ago', region: 'global' },
   { id: 3, name: 'Azure Consumption API', type: 'OAuth 2.0', status: 'error', lastSync: '2 hours ago', region: 'eu-west-1' },
   { id: 4, name: 'OpenAI Enterprise Usage', type: 'API Key', status: 'connected', lastSync: '5 mins ago', region: 'global' },
+  { id: 5, name: 'CASB Network Egress', type: 'Log Sync', status: 'connected', lastSync: '1 min ago', region: 'global' },
 ];
 
 const AUDIT_LOGS = [
   { id: 1, action: 'API Key Rotated', user: 'admin@acme.com', timestamp: '2026-06-08 13:42:10 UTC', detail: 'OpenAI primary key rotated' },
   { id: 2, action: 'Policy Updated', user: 'security@acme.com', timestamp: '2026-06-07 09:15:22 UTC', detail: 'RBAC: Data Science team added to Snowflake insights' },
   { id: 3, action: 'SSO Sync Complete', user: 'system', timestamp: '2026-06-07 00:00:00 UTC', detail: 'Okta directory synchronization successful' },
+  { id: 4, action: 'Discovery Scan', user: 'system', timestamp: '2026-06-06 18:00:00 UTC', detail: 'Shadow AI egress scan completed, 3 new endpoints detected' },
 ];
 
 const AI_TOOLS = [
-  { id: 1, name: 'Cursor IDE', category: 'Developer Tools', vendor: 'Cursor', status: 'active', connector: 'API Key Management', seatsAllocated: 120 },
-  { id: 2, name: 'GitHub Copilot', category: 'Developer Tools', vendor: 'Microsoft', status: 'active', connector: 'Azure Consumption API', seatsAllocated: 145 },
-  { id: 3, name: 'Figma', category: 'Design & Creative', vendor: 'Figma', status: 'active', connector: 'API Key Management', seatsAllocated: 85 },
-  { id: 4, name: 'Lovable.dev', category: 'Design & Creative', vendor: 'Lovable', status: 'active', connector: 'Manual Ingestion', seatsAllocated: 20 },
-  { id: 5, name: 'ChatGPT Ent.', category: 'General Productivity', vendor: 'OpenAI', status: 'active', connector: 'OpenAI Enterprise Usage', seatsAllocated: 320 },
+  { id: 1, name: 'Cursor IDE', category: 'Developer Tools', vendor: 'Cursor', status: 'managed', connector: 'API Key Management', seatsAllocated: 120 },
+  { id: 2, name: 'GitHub Copilot', category: 'Developer Tools', vendor: 'Microsoft', status: 'managed', connector: 'Azure Consumption API', seatsAllocated: 145 },
+  { id: 3, name: 'Figma', category: 'Design & Creative', vendor: 'Figma', status: 'managed', connector: 'API Key Management', seatsAllocated: 85 },
+  { id: 4, name: 'Lovable.dev', category: 'Design & Creative', vendor: 'Lovable', status: 'managed', connector: 'Manual Ingestion', seatsAllocated: 20 },
+  { id: 5, name: 'ChatGPT Ent.', category: 'General Productivity', vendor: 'OpenAI', status: 'managed', connector: 'OpenAI Enterprise Usage', seatsAllocated: 320 },
+  { id: 6, name: 'ChatGPT Plus', category: 'Consumer Subscriptions', vendor: 'OpenAI', status: 'shadow', connector: 'CASB Discovery', seatsAllocated: 112 },
+  { id: 7, name: 'Claude Pro', category: 'Consumer Subscriptions', vendor: 'Anthropic', status: 'shadow', connector: 'CASB Discovery', seatsAllocated: 45 },
+  { id: 8, name: 'Midjourney', category: 'Design & Creative', vendor: 'Midjourney', status: 'shadow', connector: 'Network Egress', seatsAllocated: 32 },
 ];
 
 export default function AdminPortal() {
@@ -222,10 +227,10 @@ export default function AdminPortal() {
                       <div className="col-span-1 md:col-span-2 flex items-center justify-between md:justify-end gap-3 mt-2 md:mt-0">
                         <span className="text-xs text-zinc-500 md:hidden uppercase font-semibold">Status</span>
                         <div className="flex items-center gap-3">
-                          <span className={`text-xs px-2 py-0.5 rounded font-medium ${
-                            tool.status === 'active' ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400' : 
-                            tool.status === 'paused' ? 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400' : 
-                            'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400'
+                          <span className={`text-xs px-2 py-0.5 rounded font-medium border ${
+                            tool.status === 'managed' ? 'bg-emerald-50 text-emerald-600 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20' : 
+                            tool.status === 'shadow' ? 'bg-rose-50 text-rose-600 border-rose-200 dark:bg-rose-500/10 dark:text-rose-400 dark:border-rose-500/20' : 
+                            'bg-zinc-100 text-zinc-600 border-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-700'
                           }`}>
                             {tool.status.charAt(0).toUpperCase() + tool.status.slice(1)}
                           </span>

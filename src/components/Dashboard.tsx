@@ -18,12 +18,12 @@ import {
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
 const MONTHLY_METRICS = [
-  { base: 18000, variable: 5000, overages: 1000, prevTotal: 22000 },
-  { base: 18000, variable: 8000, overages: 1500, prevTotal: 24000 },
-  { base: 20000, variable: 9800, overages: 1200, prevTotal: 27500 },
-  { base: 20000, variable: 12000, overages: 1000, prevTotal: 31000 },
-  { base: 22000, variable: 22601, overages: 1600, prevTotal: 33000 },
-  { base: 24100, variable: 19531, overages: 1600, prevTotal: 46201 },
+  { base: 18000, variable: 5000, overages: 1000, prevTotal: 22000, shadowAI: 1200 },
+  { base: 18000, variable: 8000, overages: 1500, prevTotal: 24000, shadowAI: 1400 },
+  { base: 20000, variable: 9800, overages: 1200, prevTotal: 27500, shadowAI: 1800 },
+  { base: 20000, variable: 12000, overages: 1000, prevTotal: 31000, shadowAI: 2100 },
+  { base: 22000, variable: 22601, overages: 1600, prevTotal: 33000, shadowAI: 3500 },
+  { base: 24100, variable: 19531, overages: 1600, prevTotal: 46201, shadowAI: 4100 },
 ];
 
 const SANKEY_NODES = [
@@ -351,6 +351,17 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="text-lg font-mono text-zinc-900 dark:text-zinc-100">${currentMetrics.overages.toLocaleString()}</div>
+          </div>
+          <div className="w-px h-8 bg-zinc-200 dark:bg-zinc-800 shrink-0"></div>
+          <div>
+            <div className="text-[11px] font-semibold text-zinc-500 uppercase tracking-widest mb-1.5 flex items-center gap-1.5 relative group cursor-help w-max">
+              Shadow AI (Est.)
+              <Info className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-800 dark:group-hover:text-zinc-300 transition-colors" />
+              <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-zinc-900 dark:bg-zinc-800 border border-zinc-700 text-zinc-100 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-[100] normal-case tracking-normal font-normal text-xs leading-relaxed">
+                Estimated external spend based on network egress and unsanctioned AI access logs. Not included in total budget.
+              </div>
+            </div>
+            <div className="text-lg font-mono text-zinc-900 dark:text-zinc-100">${currentMetrics.shadowAI.toLocaleString()}</div>
           </div>
         </div>
 

@@ -28,7 +28,8 @@ import {
   Lightbulb,
   TrendingUp,
   ChevronRight,
-  X
+  X,
+  ShieldAlert
 } from 'lucide-react';
 
 const INSIGHTS = [
@@ -67,6 +68,18 @@ const INSIGHTS = [
     color: 'text-emerald-600 dark:text-emerald-400',
     bg: 'bg-emerald-100 dark:bg-emerald-500/10',
     border: 'border-emerald-200 dark:border-emerald-500/20'
+  },
+  {
+    id: 4,
+    type: 'security',
+    title: 'Shadow AI Usage Detected',
+    description: '12 active users observed utilizing midjourney.com and claude.ai without SSO integration over the past week.',
+    action: 'Review Security Logs',
+    time: 'Just now',
+    icon: ShieldAlert,
+    color: 'text-rose-600 dark:text-rose-400',
+    bg: 'bg-rose-100 dark:bg-rose-500/10',
+    border: 'border-rose-200 dark:border-rose-500/20'
   }
 ];
 
