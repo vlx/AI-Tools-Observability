@@ -96,19 +96,19 @@ The Aperture platform utilizes a decoupled cloud architecture to ingest, normali
 
 Aperture employs specific formulations to normalize spend across tools (T) and users (U), and to forecast future budgetary needs.
 
-**Consolidated Total Cost:** C\_{total} \= \\sum\_{t \\in T} (S\_t \\cdot N\_t \+ \\sum\_{u \\in U} (K\_{t,u} \\cdot \\vec{P\_t}) \+ O\_t)
+**Consolidated Total Cost:** $C\_{total} \= \\sum\_{t \\in T} (S\_t \\cdot N\_t \+ \\sum\_{u \\in U} (K\_{t,u} \\cdot \\vec{P\_t}) \+ O\_t)$
 
-**Predictive Cost Forecast:** C\_{predicted} \= \\sum(S\_t \\cdot (N\_t \+ H\_t \- A\_t) \+ \\sum(K\_{t,u} \\cdot \\vec{P\_t} \\cdot D\_u) \+ O\_t)
+**Predictive Cost Forecast:** $C\_{predicted} \= \\sum(S\_t \\cdot (N\_t \+ H\_t \- A\_t) \+ \\sum(K\_{t,u} \\cdot \\vec{P\_t} \\cdot D\_u) \+ O\_t)$
 
 **Legend:**
 
-* S\_t: Base monthly subscription cost per seat.  
-* N\_t: Active seat allocation count.  
-* K\_{t,u}: Unit volume consumed by user u.  
-* \\vec{P\_t}: **Price Vector** (Multidimensional: Input, Output, Cache Read, Cache Write prices).  
-* O\_t: Variable overages and fixed infrastructure minimums.  
-* H\_t / A\_t: Forecasted new hires and attrition.  
-* D\_u: **Dynamic Workday Factor** (\\frac{\\text{Planned Work Days}}{\\text{Total Business Days}}).
+* $S\_t$: Base monthly subscription cost per seat.  
+* $N\_t$: Active seat allocation count.  
+* $K\_{t,u}$: Unit volume consumed by user u.  
+* $\\vec{P\_t}$: **Price Vector** (Multidimensional: Input, Output, Cache Read, Cache Write prices).  
+* $O\_t$: Variable overages and fixed infrastructure minimums.  
+* $H\_t / A\_t$: Forecasted new hires and attrition.  
+* $D\_u$: **Dynamic Workday Factor** $(\\frac{\\text{Planned Work Days}}{\\text{Total Business Days}})$.
 
 ### **8\. UI/UX Design Evolution and Information Architecture**
 
