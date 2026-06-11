@@ -399,8 +399,10 @@ export default function Dashboard() {
             <div className="space-y-6">
               <div>
                 <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-3">Mathematical Definition</h3>
-                <div className="font-mono text-sm text-zinc-800 dark:text-zinc-200 bg-zinc-50 dark:bg-zinc-900 py-3 px-4 rounded-lg border border-zinc-200 dark:border-zinc-800 overflow-x-auto">
-                  C_total = Σ (S_t * N_t + Σ (K_t,u * P_t) + O_t)
+                <div className="font-serif text-lg text-zinc-900 dark:text-zinc-100 bg-zinc-50 dark:bg-zinc-900/50 py-4 px-5 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-x-auto flex flex-col items-center justify-center shadow-inner gap-2">
+                  <span>
+                    <i>C</i><sub>total</sub> = &sum; (<i>S</i><sub><i>t</i></sub> &middot; <i>N</i><sub><i>t</i></sub> + &sum; <i>K</i><sub><i>t,u</i></sub> &middot; <i>P</i><sub><i>t</i></sub> + <i>O</i><sub><i>t</i></sub>)
+                  </span>
                 </div>
               </div>
 
@@ -408,27 +410,27 @@ export default function Dashboard() {
                 <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-4">Variable Declarations</h3>
                 <ul className="space-y-4 text-sm text-zinc-600 dark:text-zinc-400 list-none p-0">
                   <li className="flex flex-col gap-1.5">
-                    <span className="font-mono text-xs font-semibold text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded w-max border border-zinc-200 dark:border-zinc-700">C_total</span>
+                    <span className="font-serif text-[15px] leading-none text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 px-2.5 py-1.5 rounded-md w-max border border-zinc-200 dark:border-zinc-700 shadow-sm"><i>C</i><sub>total</sub></span>
                     <span>Total monthly organization-wide AI tooling cost.</span>
                   </li>
                   <li className="flex flex-col gap-1.5">
-                    <span className="font-mono text-xs font-semibold text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded w-max border border-zinc-200 dark:border-zinc-700">S_t</span>
-                    <span>Monthly seat base price for tool <em>t</em>.</span>
+                    <span className="font-serif text-[15px] leading-none text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 px-2.5 py-1.5 rounded-md w-max border border-zinc-200 dark:border-zinc-700 shadow-sm"><i>S</i><sub><i>t</i></sub></span>
+                    <span>Monthly seat base price for tool <i>t</i>.</span>
                   </li>
                   <li className="flex flex-col gap-1.5">
-                    <span className="font-mono text-xs font-semibold text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded w-max border border-zinc-200 dark:border-zinc-700">N_t</span>
-                    <span>Number of active provisioned seats for tool <em>t</em>.</span>
+                    <span className="font-serif text-[15px] leading-none text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 px-2.5 py-1.5 rounded-md w-max border border-zinc-200 dark:border-zinc-700 shadow-sm"><i>N</i><sub><i>t</i></sub></span>
+                    <span>Number of active provisioned seats for tool <i>t</i>.</span>
                   </li>
                   <li className="flex flex-col gap-1.5">
-                    <span className="font-mono text-xs font-semibold text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded w-max border border-zinc-200 dark:border-zinc-700">K_t,u</span>
-                    <span>Consumable compute tokens or actions requested by user <em>u</em> in tool <em>t</em>.</span>
+                    <span className="font-serif text-[15px] leading-none text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 px-2.5 py-1.5 rounded-md w-max border border-zinc-200 dark:border-zinc-700 shadow-sm"><i>K</i><sub><i>t,u</i></sub></span>
+                    <span>Consumable compute tokens or actions requested by user <i>u</i> in tool <i>t</i>.</span>
                   </li>
                   <li className="flex flex-col gap-1.5">
-                    <span className="font-mono text-xs font-semibold text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded w-max border border-zinc-200 dark:border-zinc-700">P_t</span>
+                    <span className="font-serif text-[15px] leading-none text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 px-2.5 py-1.5 rounded-md w-max border border-zinc-200 dark:border-zinc-700 shadow-sm"><i>P</i><sub><i>t</i></sub></span>
                     <span>Price per unit/token in variable usage or overage tiers.</span>
                   </li>
                   <li className="flex flex-col gap-1.5">
-                    <span className="font-mono text-xs font-semibold text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded w-max border border-zinc-200 dark:border-zinc-700">O_t</span>
+                    <span className="font-serif text-[15px] leading-none text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 px-2.5 py-1.5 rounded-md w-max border border-zinc-200 dark:border-zinc-700 shadow-sm"><i>O</i><sub><i>t</i></sub></span>
                     <span>Fixed cloud infrastructure minimums, maintenance SLA costs, or unallocated overhead.</span>
                   </li>
                 </ul>
